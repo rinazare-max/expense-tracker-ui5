@@ -1,0 +1,62 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+	<Dialog
+		id="expenseDialog"
+		title="{expenseForm>/dialogTitle}"
+		contentWidth="32rem"
+		stretchOnPhone="true">
+		<content>
+			<VBox>
+				<Label
+					text="{i18n>categoryLabel}"
+					labelFor="categoryInput" />
+				<Input
+					id="categoryInput"
+					value="{expenseForm>/category}"
+					placeholder="{i18n>categoryPlaceholder}"
+					required="true" />
+				<Label
+					text="{i18n>amountLabel}"
+					labelFor="amountInput" />
+				<Input
+					id="amountInput"
+					type="Number"
+					value="{expenseForm>/amount}"
+					placeholder="{i18n>amountPlaceholder}"
+					required="true" />
+				<Label
+					text="{i18n>descriptionLabel}"
+					labelFor="descriptionInput" />
+				<TextArea
+					id="descriptionInput"
+					value="{expenseForm>/description}"
+					placeholder="{i18n>descriptionPlaceholder}"
+					rows="3"
+					growing="true"
+					growingMaxLines="5" />
+				<Label
+					text="{i18n>dateLabel}"
+					labelFor="expenseDateInput" />
+				<DatePicker
+					id="expenseDateInput"
+					value="{expenseForm>/expense_date}"
+					valueFormat="yyyy-MM-dd"
+					displayFormat="medium"
+					placeholder="{i18n>datePlaceholder}"
+					required="true" />
+			</VBox>
+		</content>
+		<beginButton>
+			<Button
+				text="{expenseForm>/submitLabel}"
+				type="Emphasized"
+				press=".onSaveExpense" />
+		</beginButton>
+		<endButton>
+			<Button
+				text="{i18n>cancelButton}"
+				press=".onCancelAddExpense" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

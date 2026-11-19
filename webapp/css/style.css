@@ -1,0 +1,1025 @@
+:root {
+	--navy-950: #080f20;
+	--navy-900: #0f172a;
+	--navy-800: #17233b;
+	--navy-700: #22314f;
+	--slate-100: #f1f5f9;
+	--slate-300: #cbd5e1;
+	--slate-400: #94a3b8;
+	--gold-400: #fbbf24;
+	--gold-500: #f59e0b;
+	--blue-500: #3b82f6;
+	--violet-500: #8b5cf6;
+	--glass-border: rgba(203, 213, 225, 0.13);
+	--glass-bg: rgba(20, 31, 52, 0.76);
+	--shadow-soft: 0 18px 48px rgba(2, 8, 23, 0.24);
+}
+
+html,
+body,
+#content {
+	min-height: 100%;
+	margin: 0;
+}
+
+body.sapUiBody {
+	background:
+		radial-gradient(circle at 8% 12%, rgba(59, 130, 246, 0.17), transparent 28rem),
+		radial-gradient(circle at 94% 24%, rgba(139, 92, 246, 0.13), transparent 30rem),
+		linear-gradient(145deg, var(--navy-950), var(--navy-900) 52%, #111c33);
+	color: var(--slate-100);
+	font-family: "72", "Segoe UI", Arial, sans-serif;
+}
+
+.sapUiComponentContainer,
+.sapUiComponentContainer > div,
+.sapUiComponentContainer .sapUiView,
+.sapUiComponentContainer .sapMPage {
+	min-height: 100%;
+}
+
+.sapUiComponentContainer .sapMPage,
+.premiumPage,
+.premiumPage .sapMPageBgStandard,
+.premiumPage .sapMPageEnableScrolling {
+	background: transparent !important;
+}
+
+.premiumPage .sapMPageEnableScrolling > section {
+	overflow: visible;
+}
+
+.dashboardShell {
+	position: relative;
+	min-height: 100vh;
+	overflow: hidden;
+	background:
+		radial-gradient(circle at 2% 16%, rgba(37, 99, 235, 0.12), transparent 26rem),
+		radial-gradient(circle at 96% 32%, rgba(124, 58, 237, 0.1), transparent 30rem);
+	animation: dashboardEnter 450ms ease-out both;
+}
+
+.topNav {
+	position: sticky;
+	top: 0;
+	z-index: 20;
+	min-height: 76px;
+	padding: 0 clamp(1rem, 4vw, 3.5rem);
+	border-bottom: 1px solid rgba(203, 213, 225, 0.1);
+	background: rgba(8, 15, 32, 0.78);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+}
+
+.brandBlock {
+	gap: 0.85rem;
+}
+
+.brandMark {
+	width: 42px;
+	height: 42px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	border-radius: 14px;
+	background: linear-gradient(145deg, var(--gold-400), var(--gold-500) 56%, #ea7b0c);
+	box-shadow: 0 8px 24px rgba(245, 158, 11, 0.23);
+}
+
+.brandIcon {
+	color: var(--navy-900);
+	font-size: 1.2rem;
+}
+
+.brandTitle.sapMTitle {
+	color: #f8fafc;
+	font-size: 1.05rem;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+.brandCaption {
+	margin-top: -0.1rem;
+	color: var(--slate-400);
+	font-size: 0.7rem;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+.profileAvatar {
+	margin-right: 0.55rem;
+	border: 2px solid rgba(245, 158, 11, 0.55);
+	background: linear-gradient(145deg, #263a5e, #18243a);
+}
+
+.profileAvatar .sapFAvatarInitialsHolder {
+	color: var(--gold-400);
+	font-weight: 700;
+}
+
+.profileEmail {
+	max-width: 15rem;
+	margin-right: 0.75rem;
+	overflow: hidden;
+	color: var(--slate-300);
+	font-size: 0.82rem;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.navSignInButton .sapMBtnInner,
+.navSignOutButton .sapMBtnInner {
+	height: 2.6rem;
+	border: 1px solid rgba(203, 213, 225, 0.18);
+	border-radius: 11px;
+	background: rgba(255, 255, 255, 0.05);
+	color: #e2e8f0;
+	transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.navSignInButton .sapMBtnInner:hover,
+.navSignOutButton .sapMBtnInner:hover {
+	transform: translateY(-1px);
+	border-color: rgba(245, 158, 11, 0.5);
+	background: rgba(245, 158, 11, 0.11);
+}
+
+.dashboardMain {
+	width: min(100% - 3rem, 1440px);
+	margin: 0 auto;
+	padding: 2.25rem 0 4rem;
+}
+
+.heroSection {
+	gap: 1.5rem;
+	margin: 0.25rem 0 1.7rem;
+}
+
+.heroCopy {
+	max-width: 760px;
+}
+
+.eyebrowText {
+	margin-bottom: 0.55rem;
+	color: var(--gold-400);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+
+.heroTitle.sapMTitle {
+	color: #f8fafc;
+	font-size: clamp(2rem, 4vw, 3rem);
+	font-weight: 700;
+	letter-spacing: -0.045em;
+	line-height: 1.08;
+}
+
+.heroSubtitle {
+	max-width: 38rem;
+	margin-top: 0.55rem;
+	color: var(--slate-400);
+	font-size: 0.98rem;
+	line-height: 1.55;
+}
+
+.premiumAddButton .sapMBtnInner,
+.applyFilterButton .sapMBtnInner {
+	position: relative;
+	overflow: hidden;
+	height: 3rem;
+	border: 0;
+	border-radius: 12px;
+	background: linear-gradient(125deg, #2563eb, #6953e8 55%, #8b5cf6);
+	box-shadow: 0 10px 24px rgba(79, 70, 229, 0.28);
+	color: #fff;
+	font-weight: 700;
+	transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.premiumAddButton .sapMBtnInner::after,
+.applyFilterButton .sapMBtnInner::after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 8rem;
+	height: 8rem;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.2);
+	content: "";
+	opacity: 0;
+	pointer-events: none;
+	transform: translate(-50%, -50%) scale(0);
+}
+
+.premiumAddButton .sapMBtnInner:active::after,
+.applyFilterButton .sapMBtnInner:active::after {
+	animation: buttonRipple 520ms ease-out;
+}
+
+.premiumAddButton .sapMBtnInner {
+	padding: 0 1.25rem;
+}
+
+.premiumAddButton .sapMBtnInner:hover,
+.applyFilterButton .sapMBtnInner:hover {
+	transform: translateY(-2px) scale(1.015);
+	filter: brightness(1.08);
+	box-shadow: 0 14px 30px rgba(79, 70, 229, 0.38);
+}
+
+.premiumAddButton .sapMBtnIcon,
+.applyFilterButton .sapMBtnIcon {
+	color: #fff;
+}
+
+.summaryGrid {
+	gap: 1rem;
+	margin-bottom: 1.2rem;
+}
+
+.summaryCard {
+	position: relative;
+	flex: 1 1 calc(25% - 0.8rem);
+	min-width: 205px;
+	min-height: 155px;
+	padding: 1.15rem 1.2rem;
+	overflow: hidden;
+	border: 1px solid var(--glass-border);
+	border-radius: 16px;
+	background:
+		linear-gradient(145deg, rgba(30, 45, 72, 0.92), rgba(17, 27, 47, 0.82));
+	box-shadow: var(--shadow-soft);
+	transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.summaryCard::after {
+	position: absolute;
+	right: -2.25rem;
+	bottom: -3.1rem;
+	width: 8rem;
+	height: 8rem;
+	border-radius: 50%;
+	background: var(--card-glow, rgba(245, 158, 11, 0.16));
+	content: "";
+	filter: blur(1px);
+	pointer-events: none;
+}
+
+.summaryCard:hover,
+.chartCard:hover {
+	transform: translateY(-3px);
+	border-color: rgba(203, 213, 225, 0.25);
+	box-shadow: 0 24px 54px rgba(2, 8, 23, 0.34);
+}
+
+.summaryTotal {
+	--card-glow: rgba(245, 158, 11, 0.2);
+}
+
+.summaryMonth {
+	--card-glow: rgba(59, 130, 246, 0.23);
+}
+
+.summaryTransactions {
+	--card-glow: rgba(16, 185, 129, 0.18);
+}
+
+.summaryAverage {
+	--card-glow: rgba(139, 92, 246, 0.22);
+}
+
+.summaryCardTop {
+	gap: 0.65rem;
+}
+
+.summaryIcon,
+.sectionIcon,
+.chartHeaderIcon {
+	width: 2.25rem;
+	height: 2.25rem;
+	flex: 0 0 2.25rem;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 11px;
+	background: rgba(255, 255, 255, 0.065);
+	color: var(--gold-400);
+}
+
+.summaryMonth .summaryIcon {
+	color: #60a5fa;
+}
+
+.summaryTransactions .summaryIcon {
+	color: #34d399;
+}
+
+.summaryAverage .summaryIcon {
+	color: #a78bfa;
+}
+
+.summaryLabel {
+	color: var(--slate-300);
+	font-size: 0.84rem;
+	font-weight: 600;
+}
+
+.summaryValue.sapMObjectNumber {
+	display: block;
+	min-height: 2.5rem;
+	margin-top: 1rem;
+	overflow: visible;
+	line-height: 1.25 !important;
+}
+
+.summaryValue .sapMObjectNumberInner {
+	display: inline-flex;
+	min-height: 2.5rem;
+	align-items: center;
+	overflow: visible !important;
+	line-height: 1.25 !important;
+}
+
+.summaryValue .sapMObjectNumberText {
+	color: #f8fafc;
+	font-size: clamp(1.55rem, 2.6vw, 2.1rem);
+	font-weight: 700;
+	letter-spacing: -0.04em;
+	line-height: 1.25 !important;
+	overflow: visible !important;
+	white-space: nowrap;
+}
+
+.summaryTotal .summaryValue .sapMObjectNumberText {
+	color: var(--gold-400);
+}
+
+.summaryFootnote {
+	margin-top: 0.3rem;
+	color: var(--slate-400);
+	font-size: 0.75rem;
+}
+
+.filterCard,
+.chartCard,
+.tableCard {
+	border: 1px solid var(--glass-border);
+	border-radius: 16px;
+	background: var(--glass-bg);
+	box-shadow: var(--shadow-soft);
+	backdrop-filter: blur(18px);
+	-webkit-backdrop-filter: blur(18px);
+}
+
+.filterCard {
+	margin: 0.25rem 0 1.2rem;
+	padding: 1.25rem 1.4rem 1.4rem;
+}
+
+.sectionHeading {
+	gap: 0.75rem;
+}
+
+.sectionIcon {
+	color: #93c5fd;
+}
+
+.sectionTitle.sapMTitle,
+.chartTitle.sapMTitle {
+	color: #f8fafc;
+	font-size: 1.04rem;
+	font-weight: 700;
+	letter-spacing: -0.015em;
+}
+
+.sectionSubtitle,
+.chartSubtitle {
+	margin-top: 0.2rem;
+	color: var(--slate-400);
+	font-size: 0.8rem;
+}
+
+.filterControls {
+	gap: 0.85rem;
+	margin-top: 1.25rem;
+}
+
+.filterField {
+	flex: 1 1 190px;
+	max-width: 260px;
+}
+
+.filterField .sapMLabel {
+	margin-bottom: 0.38rem;
+	color: var(--slate-300);
+	font-size: 0.77rem;
+	font-weight: 600;
+}
+
+.premiumPage .sapMInputBaseContentWrapper {
+	min-height: 2.75rem;
+	border: 1px solid rgba(203, 213, 225, 0.17) !important;
+	border-radius: 11px !important;
+	background: rgba(6, 13, 27, 0.42) !important;
+	box-shadow: none !important;
+}
+
+.premiumPage .sapMInputBaseInner {
+	color: #f1f5f9;
+}
+
+.premiumPage .sapMInputBaseInner::placeholder {
+	color: #71819b;
+}
+
+.premiumPage .sapMInputBaseIcon {
+	color: #9fb0ca;
+}
+
+.premiumPage .sapMInputBaseContentWrapper:focus-within {
+	border-color: rgba(245, 158, 11, 0.72) !important;
+	box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.11) !important;
+}
+
+.filterActions {
+	gap: 0.55rem;
+	padding-bottom: 0.05rem;
+}
+
+.applyFilterButton .sapMBtnInner {
+	height: 2.75rem;
+	padding: 0 1rem;
+}
+
+.resetFilterButton .sapMBtnInner {
+	height: 2.75rem;
+	border: 1px solid rgba(203, 213, 225, 0.17);
+	border-radius: 11px;
+	background: rgba(255, 255, 255, 0.035);
+	color: var(--slate-300);
+	transition: background 160ms ease, border-color 160ms ease;
+}
+
+.resetFilterButton .sapMBtnInner:hover {
+	border-color: rgba(203, 213, 225, 0.35);
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.chartGrid {
+	gap: 1rem;
+	margin-bottom: 1.2rem;
+}
+
+.chartCard {
+	flex: 1 1 calc(33.333% - 0.7rem);
+	min-width: 300px;
+	padding: 1.25rem 1.2rem 0.85rem;
+	transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.chartHeader {
+	gap: 0.75rem;
+	margin-bottom: 0.75rem;
+}
+
+.chartHeaderIcon {
+	color: #a78bfa;
+}
+
+.chartTitle.sapMTitle {
+	font-size: 0.98rem;
+}
+
+.analyticsSvg {
+	display: block;
+	width: 100%;
+	height: auto;
+	min-height: 190px;
+	overflow: visible;
+}
+
+.chartGridLine {
+	stroke: rgba(148, 163, 184, 0.16);
+	stroke-dasharray: 4 6;
+	stroke-width: 1;
+}
+
+.chartAxisLabel {
+	fill: #8291a9;
+	font-family: "72", "Segoe UI", Arial, sans-serif;
+	font-size: 11px;
+}
+
+.trendLine {
+	fill: none;
+	stroke: #9a82ff;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: 3;
+}
+
+.trendPoint {
+	fill: #0f172a;
+	stroke: #c4b5fd;
+	stroke-width: 2.5;
+}
+
+.chartLegendLabel {
+	fill: #cbd5e1;
+	font-family: "72", "Segoe UI", Arial, sans-serif;
+	font-size: 12px;
+}
+
+.chartLegendValue {
+	fill: #f8fafc;
+	font-family: "72", "Segoe UI", Arial, sans-serif;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.donutCenterLabel {
+	fill: #94a3b8;
+	font-family: "72", "Segoe UI", Arial, sans-serif;
+	font-size: 11px;
+}
+
+.donutCenterValue {
+	fill: #f8fafc;
+	font-family: "72", "Segoe UI", Arial, sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.weeklyBar {
+	fill: #49638c;
+	transition: fill 150ms ease, opacity 150ms ease;
+}
+
+.weeklyBar:hover {
+	fill: #8b5cf6;
+}
+
+.weeklyBarCurrent {
+	fill: #f59e0b;
+}
+
+.emptyChartText {
+	fill: #94a3b8;
+	font-family: "72", "Segoe UI", Arial, sans-serif;
+	font-size: 13px;
+}
+
+.tableCard {
+	padding: 1.2rem 1.2rem 0.55rem;
+	overflow: hidden;
+}
+
+.tablePanelHeader {
+	gap: 1rem;
+	margin: 0 0 0.85rem;
+}
+
+.visibleCount {
+	padding: 0.4rem 0.75rem;
+	border: 1px solid rgba(203, 213, 225, 0.12);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.045);
+	color: var(--slate-300);
+	font-size: 0.75rem;
+	font-weight: 600;
+}
+
+.premiumExpenseTable,
+.premiumExpenseTable .sapMListTbl,
+.premiumExpenseTable .sapMListTblHeader,
+.premiumExpenseTable .sapMListTblHeaderCell {
+	background: transparent !important;
+}
+
+.premiumExpenseTable .sapMListTbl {
+	border-collapse: separate;
+	border-spacing: 0 0.35rem;
+}
+
+.premiumExpenseTable .sapMListTblHeaderCell {
+	height: 2.7rem;
+	border-bottom: 1px solid rgba(203, 213, 225, 0.14);
+	color: #94a3b8;
+}
+
+.premiumExpenseTable .sapMListTblHeaderCell .sapMText {
+	color: #94a3b8;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.premiumExpenseTable .sapMListTblRow {
+	background: rgba(31, 45, 69, 0.47);
+	transition: transform 160ms ease, background 160ms ease;
+}
+
+.premiumExpenseTable .sapMListTblRow:nth-child(even) {
+	background: rgba(39, 54, 80, 0.48);
+}
+
+.premiumExpenseTable .sapMListTblRow:hover {
+	transform: translateY(-1px);
+	background: rgba(54, 72, 103, 0.66);
+}
+
+.premiumExpenseTable .sapMListTblCell {
+	height: 3.65rem;
+	border-top: 1px solid rgba(203, 213, 225, 0.055);
+	border-bottom: 1px solid rgba(203, 213, 225, 0.055);
+	color: #e2e8f0;
+}
+
+.premiumExpenseTable .sapMListTblCell:first-child {
+	border-left: 1px solid rgba(203, 213, 225, 0.055);
+	border-radius: 12px 0 0 12px;
+}
+
+.premiumExpenseTable .sapMListTblCell:last-child {
+	border-right: 1px solid rgba(203, 213, 225, 0.055);
+	border-radius: 0 12px 12px 0;
+}
+
+.premiumExpenseTable .sapMText {
+	color: #d5deeb;
+}
+
+.categoryBadge .sapMObjStatusText {
+	padding: 0.27rem 0.68rem;
+	border: 1px solid rgba(203, 213, 225, 0.14);
+	border-radius: 999px;
+	background: rgba(148, 163, 184, 0.1);
+	color: #cbd5e1;
+	font-size: 0.75rem;
+	font-weight: 700;
+}
+
+.categoryBadge.sapMObjStatusWarning .sapMObjStatusText {
+	border-color: rgba(245, 158, 11, 0.25);
+	background: rgba(245, 158, 11, 0.13);
+	color: #fbbf24;
+}
+
+.categoryBadge.sapMObjStatusIndication05 .sapMObjStatusText {
+	border-color: rgba(139, 92, 246, 0.28);
+	background: rgba(139, 92, 246, 0.14);
+	color: #c4b5fd;
+}
+
+.categoryBadge.sapMObjStatusInformation .sapMObjStatusText {
+	border-color: rgba(59, 130, 246, 0.28);
+	background: rgba(59, 130, 246, 0.13);
+	color: #93c5fd;
+}
+
+.categoryBadge.sapMObjStatusSuccess .sapMObjStatusText {
+	border-color: rgba(16, 185, 129, 0.25);
+	background: rgba(16, 185, 129, 0.13);
+	color: #6ee7b7;
+}
+
+.amountNumber .sapMObjectNumberText {
+	color: #fbbf24;
+	font-weight: 700;
+}
+
+.descriptionCell {
+	max-width: 24rem;
+}
+
+.dateCell {
+	color: #94a3b8 !important;
+	font-size: 0.82rem;
+}
+
+.rowActions {
+	gap: 0.2rem;
+}
+
+.editActionButton .sapMBtnIcon {
+	color: #60a5fa;
+	transition: transform 160ms ease;
+}
+
+.deleteActionButton .sapMBtnIcon {
+	color: #fb7185;
+	transition: transform 160ms ease;
+}
+
+.editActionButton:hover .sapMBtnIcon,
+.deleteActionButton:hover .sapMBtnIcon {
+	transform: scale(1.16);
+}
+
+.premiumExpenseTable .sapMListTblNoData {
+	padding: 2rem;
+	color: #94a3b8;
+}
+
+.sapMDialog,
+.sapMDialog .sapMDialogSection,
+.sapMDialog .sapMBar {
+	border-radius: 16px;
+}
+
+.sapMDialog {
+	overflow: hidden;
+	box-shadow: 0 28px 80px rgba(2, 8, 23, 0.48);
+}
+
+@keyframes dashboardEnter {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes buttonRipple {
+	0% {
+		opacity: 0.55;
+		transform: translate(-50%, -50%) scale(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(1.8);
+	}
+}
+
+@media (max-width: 900px) {
+	.dashboardMain {
+		width: min(100% - 2rem, 1440px);
+		padding-top: 1.7rem;
+	}
+
+	.summaryCard {
+		flex-basis: calc(50% - 0.55rem);
+	}
+
+	.chartCard {
+		flex-basis: calc(50% - 0.55rem);
+	}
+
+	.weeklyChartCard {
+		flex-basis: 100%;
+	}
+}
+
+@media (max-width: 620px) {
+	.topNav {
+		min-height: 66px;
+		padding: 0 1rem;
+	}
+
+	.brandMark {
+		width: 38px;
+		height: 38px;
+		border-radius: 12px;
+	}
+
+	.profileEmail {
+		display: none;
+	}
+
+	.dashboardMain {
+		width: calc(100% - 1.25rem);
+		padding: 1.35rem 0 2.5rem;
+	}
+
+	.heroSection {
+		align-items: flex-start;
+		margin-bottom: 1.2rem;
+	}
+
+	.heroTitle.sapMTitle {
+		font-size: 2rem;
+	}
+
+	.heroSubtitle {
+		font-size: 0.88rem;
+	}
+
+	.premiumAddButton .sapMBtnInner {
+		height: 2.8rem;
+	}
+
+	.summaryGrid,
+	.chartGrid {
+		gap: 0.7rem;
+	}
+
+	.summaryCard {
+		flex-basis: calc(50% - 0.4rem);
+		min-width: 145px;
+		min-height: 143px;
+		padding: 0.9rem;
+	}
+
+	.summaryIcon {
+		width: 2rem;
+		height: 2rem;
+		flex-basis: 2rem;
+	}
+
+	.summaryLabel {
+		font-size: 0.74rem;
+	}
+
+	.summaryValue .sapMObjectNumberText {
+		font-size: 1.42rem;
+	}
+
+	.summaryFootnote {
+		font-size: 0.68rem;
+	}
+
+	.filterCard,
+	.chartCard,
+	.tableCard {
+		border-radius: 14px;
+	}
+
+	.filterCard {
+		padding: 1rem;
+	}
+
+	.filterField {
+		flex-basis: 100%;
+		max-width: none;
+	}
+
+	.filterActions {
+		width: 100%;
+	}
+
+	.filterActions .sapMBtn {
+		flex: 1 1 auto;
+	}
+
+	.chartCard,
+	.weeklyChartCard {
+		flex-basis: 100%;
+		min-width: 0;
+		padding: 1rem 0.85rem 0.65rem;
+	}
+
+	.analyticsSvg {
+		min-height: 165px;
+	}
+
+	.tableCard {
+		padding: 1rem 0.65rem 0.4rem;
+	}
+
+	.tablePanelHeader {
+		padding: 0 0.35rem;
+	}
+
+	.premiumExpenseTable .sapMListTblCell {
+		padding-right: 0.45rem;
+		padding-left: 0.45rem;
+	}
+
+	.premiumExpenseTable .sapMListTblHeaderCell .sapMText {
+		font-size: 0.65rem;
+		letter-spacing: 0.035em;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+.navActions {
+	gap: 0.65rem;
+}
+
+.premiumPage .sapMText,
+.premiumPage .sapMLabel {
+	color: var(--slate-300) !important;
+}
+
+.premiumPage .brandCaption,
+.premiumPage .sectionSubtitle,
+.premiumPage .chartSubtitle,
+.premiumPage .summaryFootnote {
+	color: var(--slate-400) !important;
+}
+
+.premiumPage .brandTitle.sapMTitle,
+.premiumPage .heroTitle.sapMTitle,
+.premiumPage .sectionTitle.sapMTitle,
+.premiumPage .chartTitle.sapMTitle {
+	color: #f8fafc !important;
+}
+
+.premiumPage .eyebrowText,
+.premiumPage .summaryLabel {
+	color: var(--gold-400) !important;
+}
+
+.premiumPage .heroSubtitle {
+	color: #a9b7cb !important;
+}
+
+.premiumPage .summaryMonth .summaryLabel {
+	color: #93c5fd !important;
+}
+
+.premiumPage .summaryTransactions .summaryLabel {
+	color: #6ee7b7 !important;
+}
+
+.premiumPage .summaryAverage .summaryLabel {
+	color: #c4b5fd !important;
+}
+
+.premiumPage .filterField .sapMLabel {
+	color: var(--slate-300) !important;
+}
+
+.premiumPage .sapMInputBaseInner {
+	color: #f1f5f9 !important;
+}
+
+.premiumPage .premiumExpenseTable .sapMListTblHeaderCell .sapMText,
+.premiumPage .dateCell {
+	color: #94a3b8 !important;
+}
+
+.premiumPage .premiumExpenseTable .sapMText {
+	color: #d5deeb !important;
+}
+
+.premiumPage .visibleCount {
+	color: var(--slate-300) !important;
+}
+
+.premiumPage .summaryValue .sapMObjectNumberText {
+	color: #f8fafc !important;
+}
+
+.premiumPage .summaryTotal .summaryValue .sapMObjectNumberText,
+.premiumPage .amountNumber .sapMObjectNumberText {
+	color: var(--gold-400) !important;
+}
+
+.premiumDialog.sapMDialog,
+.premiumDialog .sapMDialogSection,
+.premiumDialog .sapMDialogTitleGroup,
+.premiumDialog .sapMBar,
+.premiumDialog .sapMDialogFooter {
+	border-color: rgba(203, 213, 225, 0.12) !important;
+	background: #111c31 !important;
+}
+
+.premiumDialog .sapMDialogFooter .sapMIBar {
+	border-top: 1px solid rgba(203, 213, 225, 0.12) !important;
+	background: #111c31 !important;
+}
+
+.premiumDialog .sapMDialogTitle,
+.premiumDialog .sapMTitle,
+.premiumDialog .sapMLabel,
+.premiumDialog .sapMText {
+	color: #e2e8f0 !important;
+}
+
+.premiumDialog .sapMDialogSection {
+	padding: 1.1rem 1.25rem;
+}
+
+.premiumDialog .sapMInputBaseContentWrapper {
+	border: 1px solid rgba(203, 213, 225, 0.2) !important;
+	border-radius: 10px !important;
+	background: rgba(6, 13, 27, 0.65) !important;
+}
+
+.premiumDialog .sapMInputBaseInner {
+	color: #f8fafc !important;
+}
+
+.premiumDialog .sapMBtnTransparent .sapMBtnInner {
+	color: #93c5fd !important;
+}
+
+.premiumDialog .sapMDialogBeginButton .sapMBtnInner {
+	border: 0;
+	border-radius: 10px;
+	background: linear-gradient(125deg, #2563eb, #7c3aed);
+	color: #fff;
+}

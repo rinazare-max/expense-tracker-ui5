@@ -1,0 +1,313 @@
+<mvc:View
+	controllerName="expenseTrack.controller.Main"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	displayBlock="true">
+	<Page
+		id="mainPage"
+		showHeader="false"
+		class="premiumPage">
+		<content>
+			<VBox class="dashboardShell">
+				<HBox
+					alignItems="Center"
+					justifyContent="SpaceBetween"
+					class="topNav">
+					<HBox alignItems="Center" class="brandBlock">
+						<HBox
+							alignItems="Center"
+							justifyContent="Center"
+							class="brandMark">
+							<core:Icon src="sap-icon://wallet" class="brandIcon" />
+						</HBox>
+						<VBox>
+							<Title text="{i18n>appTitle}" level="H2" class="brandTitle" />
+							<Text text="{i18n>brandCaption}" class="brandCaption" />
+						</VBox>
+					</HBox>
+					<HBox alignItems="Center" class="navActions">
+						<Avatar
+							initials="{viewState>/userInitials}"
+							displaySize="S"
+							tooltip="{viewState>/userEmail}"
+							visible="{viewState>/authenticated}"
+							class="profileAvatar" />
+						<Text
+							text="{viewState>/userEmail}"
+							visible="{viewState>/authenticated}"
+							class="profileEmail" />
+						<Button
+							text="{i18n>signInButton}"
+							visible="{= !${viewState>/authenticated} }"
+							press=".onOpenSignIn"
+							class="navSignInButton" />
+						<Button
+							text="{i18n>signOutButton}"
+							icon="sap-icon://log"
+							type="Transparent"
+							visible="{viewState>/authenticated}"
+							press=".onSignOut"
+							class="navSignOutButton" />
+					</HBox>
+				</HBox>
+
+				<VBox class="dashboardMain">
+					<HBox
+						alignItems="End"
+						justifyContent="SpaceBetween"
+						wrap="Wrap"
+						class="heroSection">
+						<VBox class="heroCopy">
+							<Text text="{i18n>dashboardEyebrow}" class="eyebrowText" />
+							<Title text="{i18n>dashboardHeading}" level="H1" class="heroTitle" />
+							<Text text="{i18n>dashboardSubtitle}" class="heroSubtitle" />
+						</VBox>
+						<Button
+							text="{i18n>addExpenseButton}"
+							icon="sap-icon://add"
+							type="Emphasized"
+							visible="{viewState>/authenticated}"
+							press=".onOpenAddExpense"
+							class="premiumAddButton" />
+					</HBox>
+
+					<FlexBox
+						wrap="Wrap"
+						class="summaryGrid">
+						<VBox class="summaryCard summaryTotal">
+							<HBox alignItems="Center" class="summaryCardTop">
+								<HBox justifyContent="Center" alignItems="Center" class="summaryIcon">
+									<core:Icon src="sap-icon://money-bills" />
+								</HBox>
+								<Text text="{i18n>totalExpenseLabel}" class="summaryLabel" />
+							</HBox>
+							<ObjectNumber
+								number="{viewState>/totalExpense}"
+								emphasized="true"
+								class="summaryValue" />
+							<Text text="{i18n>filteredTotalCaption}" class="summaryFootnote" />
+						</VBox>
+						<VBox class="summaryCard summaryMonth">
+							<HBox alignItems="Center" class="summaryCardTop">
+								<HBox justifyContent="Center" alignItems="Center" class="summaryIcon">
+									<core:Icon src="sap-icon://calendar" />
+								</HBox>
+								<Text text="{i18n>thisMonthLabel}" class="summaryLabel" />
+							</HBox>
+							<ObjectNumber
+								number="{viewState>/monthExpense}"
+								emphasized="true"
+								class="summaryValue" />
+							<Text text="{viewState>/currentMonthLabel}" class="summaryFootnote" />
+						</VBox>
+						<VBox class="summaryCard summaryTransactions">
+							<HBox alignItems="Center" class="summaryCardTop">
+								<HBox justifyContent="Center" alignItems="Center" class="summaryIcon">
+									<core:Icon src="sap-icon://receipt" />
+								</HBox>
+								<Text text="{i18n>transactionCountLabel}" class="summaryLabel" />
+							</HBox>
+							<ObjectNumber
+								number="{viewState>/transactionCount}"
+								emphasized="true"
+								class="summaryValue" />
+							<Text text="{i18n>filteredTransactionsCaption}" class="summaryFootnote" />
+						</VBox>
+						<VBox class="summaryCard summaryAverage">
+							<HBox alignItems="Center" class="summaryCardTop">
+								<HBox justifyContent="Center" alignItems="Center" class="summaryIcon">
+									<core:Icon src="sap-icon://trend-up" />
+								</HBox>
+								<Text text="{i18n>averageExpenseLabel}" class="summaryLabel" />
+							</HBox>
+							<ObjectNumber
+								number="{viewState>/averageExpense}"
+								emphasized="true"
+								class="summaryValue" />
+							<Text text="{i18n>perTransactionCaption}" class="summaryFootnote" />
+						</VBox>
+					</FlexBox>
+
+					<VBox class="filterCard">
+						<HBox alignItems="Center" class="sectionHeading">
+							<HBox justifyContent="Center" alignItems="Center" class="sectionIcon">
+								<core:Icon src="sap-icon://search" />
+							</HBox>
+							<VBox>
+								<Title text="{i18n>filterSectionTitle}" level="H3" class="sectionTitle" />
+								<Text text="{i18n>filterSectionSubtitle}" class="sectionSubtitle" />
+							</VBox>
+						</HBox>
+						<FlexBox
+							alignItems="End"
+							wrap="Wrap"
+							class="filterControls">
+							<VBox class="filterField">
+								<Label
+									text="{i18n>dateFromLabel}"
+									labelFor="expenseDateFromFilter" />
+								<DatePicker
+									id="expenseDateFromFilter"
+									width="100%"
+									valueFormat="yyyy-MM-dd"
+									displayFormat="medium"
+									value="{path: 'viewState>/dateFrom', mode: 'OneWay'}"
+									placeholder="{i18n>dateFromPlaceholder}"
+									showClearIcon="true"
+									change=".onDateRangeChange" />
+							</VBox>
+							<VBox class="filterField">
+								<Label
+									text="{i18n>dateToLabel}"
+									labelFor="expenseDateToFilter" />
+								<DatePicker
+									id="expenseDateToFilter"
+									width="100%"
+									valueFormat="yyyy-MM-dd"
+									displayFormat="medium"
+									value="{path: 'viewState>/dateTo', mode: 'OneWay'}"
+									placeholder="{i18n>dateToPlaceholder}"
+									showClearIcon="true"
+									change=".onDateRangeChange" />
+							</VBox>
+							<HBox class="filterActions">
+								<Button
+									text="{i18n>applyFilterButton}"
+									icon="sap-icon://filter"
+									type="Emphasized"
+									press=".onApplyFilters"
+									class="applyFilterButton" />
+								<Button
+									text="{i18n>resetFilterButton}"
+									type="Transparent"
+									press=".onResetFilters"
+									class="resetFilterButton" />
+							</HBox>
+						</FlexBox>
+					</VBox>
+
+					<FlexBox
+						wrap="Wrap"
+						class="chartGrid">
+						<VBox class="chartCard trendChartCard">
+							<HBox justifyContent="SpaceBetween" alignItems="Start" class="chartHeader">
+								<VBox>
+									<Title text="{i18n>monthlyTrendTitle}" level="H3" class="chartTitle" />
+									<Text text="{i18n>monthlyTrendSubtitle}" class="chartSubtitle" />
+								</VBox>
+								<HBox justifyContent="Center" alignItems="Center" class="chartHeaderIcon">
+									<core:Icon src="sap-icon://line-chart" />
+								</HBox>
+							</HBox>
+							<core:HTML id="monthlyTrendChart" sanitizeContent="false" />
+						</VBox>
+						<VBox class="chartCard categoryChartCard">
+							<HBox justifyContent="SpaceBetween" alignItems="Start" class="chartHeader">
+								<VBox>
+									<Title text="{i18n>categoryBreakdownTitle}" level="H3" class="chartTitle" />
+									<Text text="{i18n>categoryBreakdownSubtitle}" class="chartSubtitle" />
+								</VBox>
+								<HBox justifyContent="Center" alignItems="Center" class="chartHeaderIcon">
+									<core:Icon src="sap-icon://pie-chart" />
+								</HBox>
+							</HBox>
+							<core:HTML id="categoryBreakdownChart" sanitizeContent="false" />
+						</VBox>
+						<VBox class="chartCard weeklyChartCard">
+							<HBox justifyContent="SpaceBetween" alignItems="Start" class="chartHeader">
+								<VBox>
+									<Title text="{i18n>weeklyAnalyticsTitle}" level="H3" class="chartTitle" />
+									<Text text="{i18n>weeklyAnalyticsSubtitle}" class="chartSubtitle" />
+								</VBox>
+								<HBox justifyContent="Center" alignItems="Center" class="chartHeaderIcon">
+									<core:Icon src="sap-icon://bar-chart" />
+								</HBox>
+							</HBox>
+							<core:HTML id="weeklyAnalyticsChart" sanitizeContent="false" />
+						</VBox>
+					</FlexBox>
+
+					<VBox class="tableCard">
+						<HBox
+							alignItems="Center"
+							justifyContent="SpaceBetween"
+							wrap="Wrap"
+							class="tablePanelHeader">
+							<VBox>
+								<Title text="{i18n>expensesTitle}" level="H2" class="sectionTitle" />
+								<Text text="{i18n>expenseTableSubtitle}" class="sectionSubtitle" />
+							</VBox>
+							<Text
+								text="{viewState>/visibleTransactionLabel}"
+								class="visibleCount" />
+						</HBox>
+						<BusyIndicator
+							visible="{viewState>/busy}"
+							text="{i18n>loadingExpenses}"
+							size="1.5rem" />
+						<Table
+							id="expensesTable"
+							items="{expenses>/items}"
+							noDataText="{i18n>noExpenses}"
+							growing="true"
+							growingScrollToLoad="true"
+							sticky="ColumnHeaders"
+							inset="false"
+							class="premiumExpenseTable">
+							<columns>
+								<Column>
+									<Text text="{i18n>categoryLabel}" />
+								</Column>
+								<Column hAlign="End" width="9rem">
+									<Text text="{i18n>amountLabel}" />
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Text text="{i18n>descriptionLabel}" />
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true" width="10rem">
+									<Text text="{i18n>dateLabel}" />
+								</Column>
+								<Column hAlign="Center" width="8rem">
+									<Text text="{i18n>actionsLabel}" />
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem type="Inactive" vAlign="Middle">
+									<cells>
+										<ObjectStatus
+											text="{expenses>category}"
+											state="{path: 'expenses>category', formatter: '.formatCategoryState'}"
+											class="categoryBadge" />
+										<ObjectNumber
+											number="{expenses>amount}"
+											emphasized="true"
+											class="amountNumber" />
+										<Text text="{expenses>description}" class="descriptionCell" />
+										<Text text="{expenses>expense_date}" class="dateCell" />
+										<HBox justifyContent="Center" class="rowActions">
+											<Button
+												icon="sap-icon://edit"
+												type="Transparent"
+												tooltip="{i18n>editExpenseButton}"
+												visible="{viewState>/authenticated}"
+												press=".onEditExpense"
+												class="editActionButton" />
+											<Button
+												icon="sap-icon://delete"
+												type="Transparent"
+												tooltip="{i18n>deleteExpenseButton}"
+												visible="{viewState>/authenticated}"
+												press=".onDeleteExpense"
+												class="deleteActionButton" />
+										</HBox>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</VBox>
+				</VBox>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

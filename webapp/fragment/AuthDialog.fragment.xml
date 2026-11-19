@@ -1,0 +1,42 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+	<Dialog
+		id="authDialog"
+		title="{authForm>/dialogTitle}"
+		contentWidth="28rem"
+		stretchOnPhone="true">
+		<content>
+			<VBox>
+				<Label
+					text="{i18n>emailLabel}"
+					labelFor="authEmailInput" />
+				<Input
+					id="authEmailInput"
+					type="Email"
+					value="{authForm>/email}"
+					placeholder="{i18n>emailPlaceholder}"
+					required="true" />
+				<Label
+					text="{i18n>passwordLabel}"
+					labelFor="authPasswordInput" />
+				<Input
+					id="authPasswordInput"
+					type="Password"
+					value="{authForm>/password}"
+					placeholder="{i18n>passwordPlaceholder}"
+					required="true" />
+				<Button
+					text="{authForm>/toggleLabel}"
+					type="Transparent"
+					press=".onToggleAuthMode" />
+			</VBox>
+		</content>
+		<beginButton>
+			<Button
+				text="{authForm>/submitLabel}"
+				type="Emphasized"
+				press=".onSubmitAuth" />
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>
