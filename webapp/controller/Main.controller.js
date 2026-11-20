@@ -65,7 +65,9 @@ sap.ui.define([
 				var serviceConfiguration = {
 					url: configuration && configuration.uri,
 					anonKey: configuration && configuration.settings &&
-						configuration.settings.anonKey
+						configuration.settings.anonKey,
+					emailRedirectTo: configuration && configuration.settings &&
+						configuration.settings.emailRedirectTo
 				};
 				AuthService.configure(serviceConfiguration);
 				SupabaseService.configure(serviceConfiguration);

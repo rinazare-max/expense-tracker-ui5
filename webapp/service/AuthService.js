@@ -38,6 +38,83 @@ sap.ui.define([], function () {
 		}
 	}
 
+	function clearAuthCallbackUrl(url) {
+		url.hash = "";
+		[
+			"access_token",
+			"refresh_token",
+			"expires_in",
+			"token_type",
+			"type",
+			"error",
+			"error_code",
+			"error_description"
+		].forEach(function (key) {
+			url.searchParams.delete(key);
+		});
+		window.history.replaceState(
+			null,
+			document.title,
+			url.pathname + url.search
+		);
+	}
+
+	async function getCurrentUser(accessToken) {
+		var response = await fetch(configuration.url + "/auth/v1/user", {
+			method: "GET",
+			headers: {
+				apikey: configuration.anonKey,
+				Authorization: "Bearer " + accessToken
+			}
+		});
+		var responseBody = await response.text();
+		var parsedBody = parseResponse(responseBody);
+		if (!response.ok) {
+			var error = new Error(
+				"Supabase user lookup failed with status " + response.status
+			);
+			error.status = response.status;
+			error.details = parsedBody;
+			throw error;
+		}
+		return parsedBody;
+	}
+
+	async function getAuthCallbackSession() {
+		var url = new URL(window.location.href);
+		var hashParams = new URLSearchParams(url.hash.replace(/^#/, ""));
+		var getParameter = function (key) {
+			return hashParams.get(key) || url.searchParams.get(key);
+		};
+		var errorDescription = getParameter("error_description");
+		var errorCode = getParameter("error_code") || getParameter("error");
+		if (errorDescription || errorCode) {
+			clearAuthCallbackUrl(url);
+			throw new Error(errorDescription || errorCode);
+		}
+
+		var accessToken = getParameter("access_token");
+		var refreshToken = getParameter("refresh_token");
+		if (!accessToken || !refreshToken) {
+			return null;
+		}
+
+		var expiresIn = Number(getParameter("expires_in"));
+		var session = saveSession({
+			access_token: accessToken,
+			refresh_token: refreshToken,
+			expires_in: Number.isFinite(expiresIn) && expiresIn > 0 ?
+				expiresIn : 3600,
+			token_type: getParameter("token_type") || "bearer"
+		});
+		try {
+			session.user = await getCurrentUser(accessToken);
+			return saveSession(session);
+		} finally {
+			clearAuthCallbackUrl(url);
+		}
+	}
+
 	async function authRequest(path, body, accessToken) {
 		if (!configuration) {
 			throw new Error("AuthService must be configured before authentication.");
@@ -78,16 +155,23 @@ sap.ui.define([], function () {
 
 			configuration = {
 				url: options.url.replace(/\/+$/, ""),
-				anonKey: options.anonKey
+				anonKey: options.anonKey,
+				emailRedirectTo: options.emailRedirectTo ||
+					window.location.origin
 			};
 		},
 
 		getSession: async function () {
-			var session = readSession();
+			var callbackSession = await getAuthCallbackSession();
+			var session = callbackSession || readSession();
 			if (!session || !session.refresh_token) {
 				return null;
 			}
 			if (session.expires_at > Math.floor(Date.now() / 1000) + 60) {
+				if (!session.user && session.access_token) {
+					session.user = await getCurrentUser(session.access_token);
+					saveSession(session);
+				}
 				return session;
 			}
 
@@ -108,7 +192,9 @@ sap.ui.define([], function () {
 		},
 
 		signUp: async function (email, password) {
-			var result = await authRequest("signup", {
+			var path = "signup?redirect_to=" +
+				encodeURIComponent(configuration.emailRedirectTo);
+			var result = await authRequest(path, {
 				email: email,
 				password: password
 			});

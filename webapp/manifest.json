@@ -14,7 +14,8 @@
 				"uri": "https://zkbtarwornlymbgcicyt.supabase.co",
 				"type": "REST",
 				"settings": {
-					"anonKey": "sb_publishable_D7-KPH-vNRycIMq0OdESeA_Bb-8hVV_"
+					"anonKey": "sb_publishable_D7-KPH-vNRycIMq0OdESeA_Bb-8hVV_",
+					"emailRedirectTo": "https://expense-tracker-a09888.netlify.app/"
 				}
 			}
 		}
