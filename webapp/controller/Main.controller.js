@@ -224,7 +224,6 @@ sap.ui.define([
 			}
 
 			this._setAuthenticated(null);
-			this._openAuthDialog("signIn");
 		},
 
 		onOpenSignIn: function () {
