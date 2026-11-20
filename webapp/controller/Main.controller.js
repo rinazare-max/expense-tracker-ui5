@@ -155,13 +155,27 @@ sap.ui.define([
 		_setAuthDialogMode: function (mode, email) {
 			var bundle = this.getView().getModel("i18n").getResourceBundle();
 			var isSignUp = mode === "signUp";
+			var isConfirmation = mode === "confirmation";
 			this._authDialog.setModel(new JSONModel({
 				mode: mode,
 				email: email || "",
 				password: "",
-				dialogTitle: bundle.getText(isSignUp ? "signUpTitle" : "signInTitle"),
+				dialogTitle: bundle.getText(
+					isConfirmation ? "authConfirmationDialogTitle" :
+						(isSignUp ? "signUpTitle" : "signInTitle")
+				),
 				submitLabel: bundle.getText(isSignUp ? "signUpButton" : "signInButton"),
-				toggleLabel: bundle.getText(isSignUp ? "switchToSignIn" : "switchToSignUp")
+				toggleLabel: bundle.getText(isSignUp ? "switchToSignIn" : "switchToSignUp"),
+				passwordPlaceholder: bundle.getText(isSignUp ?
+					"createPasswordPlaceholder" : "passwordPlaceholder"),
+				modeIcon: isSignUp ? "sap-icon://add" : "sap-icon://log",
+				modeDescription: bundle.getText(isSignUp ?
+					"signUpDescription" : "signInDescription"),
+				showForm: !isConfirmation,
+				showToggle: !isConfirmation,
+				showSubmit: !isConfirmation,
+				showConfirmation: isConfirmation,
+				showResendConfirmation: isConfirmation
 			}), "authForm");
 		},
 
@@ -189,8 +203,7 @@ sap.ui.define([
 				if (form.mode === "signUp") {
 					session = await AuthService.signUp(email, form.password);
 					if (!session || !session.access_token) {
-						this._setAuthDialogMode("signIn", email);
-						MessageBox.information(bundle.getText("authConfirmationSent"));
+						this._setAuthDialogMode("confirmation", email);
 						return;
 					}
 				} else {
@@ -201,6 +214,15 @@ sap.ui.define([
 				dialog.close();
 				await this._loadExpenses();
 			} catch (error) {
+				if (this._isEmailNotConfirmed(error)) {
+					this._setAuthDialogMode("confirmation", email);
+					return;
+				}
+				if (this._isEmailRateLimited(error)) {
+					MessageBox.warning(bundle.getText("authEmailRateLimited"));
+					return;
+				}
+
 				console.error("Supabase authentication failed.", error);
 				MessageBox.error(
 					bundle.getText("authRequestError"),
@@ -209,6 +231,55 @@ sap.ui.define([
 			} finally {
 				dialog.setBusy(false);
 			}
+		},
+
+		_isEmailNotConfirmed: function (error) {
+			var details = error && error.details;
+			return !!details && typeof details === "object" &&
+				(details.error_code === "email_not_confirmed" ||
+					details.code === "email_not_confirmed");
+		},
+
+		_isEmailRateLimited: function (error) {
+			var details = error && error.details;
+			return !!details && typeof details === "object" &&
+				(details.error_code === "over_email_send_rate_limit" ||
+					details.code === "over_email_send_rate_limit");
+		},
+
+		onResendConfirmation: async function () {
+			var dialog = this._authDialog;
+			var authForm = dialog.getModel("authForm");
+			var email = authForm.getProperty("/email").trim();
+			var bundle = this.getView().getModel("i18n").getResourceBundle();
+			if (!email) {
+				MessageBox.error(bundle.getText("authFieldsRequired"));
+				return;
+			}
+
+			dialog.setBusy(true);
+			try {
+				await AuthService.resendSignupConfirmation(email);
+				MessageToast.show(bundle.getText("authConfirmationResent"));
+			} catch (error) {
+				if (this._isEmailRateLimited(error)) {
+					MessageBox.warning(bundle.getText("authEmailRateLimited"));
+					return;
+				}
+
+				console.error("Failed to resend the Supabase confirmation email.", error);
+				MessageBox.error(
+					bundle.getText("authResendError"),
+					{ details: this._getErrorDetails(error) }
+				);
+			} finally {
+				dialog.setBusy(false);
+			}
+		},
+
+		onReturnToSignIn: function () {
+			var email = this._authDialog.getModel("authForm").getProperty("/email");
+			this._setAuthDialogMode("signIn", email);
 		},
 
 		onSignOut: async function () {

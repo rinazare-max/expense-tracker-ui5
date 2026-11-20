@@ -7,36 +7,89 @@
 		contentWidth="28rem"
 		stretchOnPhone="true">
 		<content>
-			<VBox>
-				<Label
-					text="{i18n>emailLabel}"
-					labelFor="authEmailInput" />
-				<Input
-					id="authEmailInput"
-					type="Email"
-					value="{authForm>/email}"
-					placeholder="{i18n>emailPlaceholder}"
-					required="true" />
-				<Label
-					text="{i18n>passwordLabel}"
-					labelFor="authPasswordInput" />
-				<Input
-					id="authPasswordInput"
-					type="Password"
-					value="{authForm>/password}"
-					placeholder="{i18n>passwordPlaceholder}"
-					required="true" />
+			<VBox class="authDialogContent">
+				<VBox
+					visible="{authForm>/showForm}"
+					class="authModeIntro">
+					<HBox
+						alignItems="Center"
+						justifyContent="Center"
+						class="authModeIcon">
+						<core:Icon src="{authForm>/modeIcon}" />
+					</HBox>
+					<Text
+						text="{authForm>/modeDescription}"
+						class="authModeDescription" />
+				</VBox>
+				<VBox
+					visible="{authForm>/showForm}"
+					class="authFields">
+					<Label
+						text="{i18n>emailLabel}"
+						labelFor="authEmailInput" />
+					<Input
+						id="authEmailInput"
+						type="Email"
+						value="{authForm>/email}"
+						placeholder="{i18n>emailPlaceholder}"
+						required="true" />
+					<Label
+						text="{i18n>passwordLabel}"
+						labelFor="authPasswordInput" />
+					<Input
+						id="authPasswordInput"
+						type="Password"
+						value="{authForm>/password}"
+						placeholder="{authForm>/passwordPlaceholder}"
+						required="true" />
+				</VBox>
 				<Button
 					text="{authForm>/toggleLabel}"
 					type="Transparent"
+					visible="{authForm>/showToggle}"
 					press=".onToggleAuthMode" />
+				<VBox
+					visible="{authForm>/showConfirmation}"
+					class="authConfirmationState">
+					<HBox
+						alignItems="Center"
+						justifyContent="Center"
+						class="confirmationIcon">
+						<core:Icon src="sap-icon://email" />
+					</HBox>
+					<Title
+						text="{i18n>authConfirmationTitle}"
+						level="H3"
+						class="confirmationTitle" />
+					<Text
+						text="{i18n>authConfirmationSentTo}"
+						class="confirmationCopy" />
+					<Text
+						text="{authForm>/email}"
+						class="confirmationEmail" />
+					<Text
+						text="{i18n>authConfirmationInstructions}"
+						class="confirmationInstructions" />
+					<Button
+						text="{i18n>resendConfirmationButton}"
+						type="Transparent"
+						visible="{authForm>/showResendConfirmation}"
+						press=".onResendConfirmation" />
+				</VBox>
 			</VBox>
 		</content>
 		<beginButton>
 			<Button
 				text="{authForm>/submitLabel}"
 				type="Emphasized"
+				visible="{authForm>/showSubmit}"
 				press=".onSubmitAuth" />
 		</beginButton>
+		<endButton>
+			<Button
+				text="{i18n>backToSignInButton}"
+				visible="{authForm>/showConfirmation}"
+				press=".onReturnToSignIn" />
+		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

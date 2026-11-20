@@ -205,6 +205,16 @@ sap.ui.define([], function () {
 			return result;
 		},
 
+		resendSignupConfirmation: async function (email) {
+			return authRequest("resend", {
+				type: "signup",
+				email: email,
+				options: {
+					emailRedirectTo: configuration.emailRedirectTo
+				}
+			});
+		},
+
 		refreshSession: async function (refreshToken) {
 			var session = await authRequest("token?grant_type=refresh_token", {
 				refresh_token: refreshToken

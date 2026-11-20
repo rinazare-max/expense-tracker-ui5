@@ -802,6 +802,11 @@ body.sapUiBody {
 		margin-left: 0 !important;
 	}
 
+	.premiumDialog .sapMDialogEndButton {
+		margin-right: auto !important;
+		margin-left: 0 !important;
+	}
+
 	.dashboardMain {
 		width: calc(100% - 1.25rem);
 		padding: 1.35rem 0 2.5rem;
@@ -1015,6 +1020,59 @@ body.sapUiBody {
 
 .premiumDialog .sapMDialogSection {
 	padding: 1.1rem 1.25rem;
+}
+
+.premiumDialog .authDialogContent {
+	gap: 0.75rem;
+}
+
+.premiumDialog .authModeIntro,
+.premiumDialog .authConfirmationState {
+	align-items: center;
+	text-align: center;
+}
+
+.premiumDialog .authModeIcon,
+.premiumDialog .confirmationIcon {
+	width: 3.25rem;
+	height: 3.25rem;
+	margin: 0 auto 0.65rem;
+	border: 1px solid rgba(245, 158, 11, 0.28);
+	border-radius: 50%;
+	background: rgba(245, 158, 11, 0.1);
+}
+
+.premiumDialog .authModeIcon .sapUiIcon,
+.premiumDialog .confirmationIcon .sapUiIcon {
+	color: #fbbf24;
+	font-size: 1.35rem;
+}
+
+.premiumDialog .authModeDescription,
+.premiumDialog .confirmationInstructions {
+	max-width: 22rem;
+	color: #aab8cc !important;
+	line-height: 1.55;
+	text-align: center;
+}
+
+.premiumDialog .authFields .sapMLabel:not(:first-child) {
+	margin-top: 0.65rem;
+}
+
+.premiumDialog .confirmationTitle {
+	margin: 0.25rem 0 0.35rem;
+}
+
+.premiumDialog .confirmationCopy {
+	color: #aab8cc !important;
+}
+
+.premiumDialog .confirmationEmail {
+	margin: 0.35rem 0 0.65rem;
+	color: #fbbf24 !important;
+	font-weight: 700;
+	overflow-wrap: anywhere;
 }
 
 .premiumDialog .sapMInputBaseContentWrapper {
